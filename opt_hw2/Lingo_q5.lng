@@ -1,0 +1,48 @@
+MODEL:
+SETS:
+DATA_SET1/M1..M12/: S1;
+!DATA_SET2/N1..N11/: S2;
+DIMENSION/D1..D2/: DIM;
+SET1_MTX(DATA_SET1,DIMENSION):SET1;
+!SET2_MTX(DATA_SET2,DIMENSION):SET2;
+ENDSETS
+
+DATA:
+SET1=
+      60	18.4
+     85.5	16.8
+     64.8	21.6
+     61.5	20.8
+     87	23.6
+    110.1	19.2
+    108	17.6 
+    82.8	22.4
+    69	20
+    93	20.8
+    51	22
+    81	20;
+
+!SET2=
+    52.8	20.8
+    64.8	17.2
+    43.2	20.4
+    84	17.6
+    49.2	17.6
+    59.4	16
+    66	18.4
+    47.4	16.4
+    33	18.8
+    51	14
+    63	14.8;
+ENDDATA
+
+MIN=@SUM(DATA_SET1(i):S1(i))!+@SUM(DATA_SET2(i):S2(i));
+
+@FOR(DATA_SET1(i):S1(i)>=0);
+!@FOR(DATA_SET2(i):S2(i)>=0);
+@FOR(DATA_SET1(i):S1(i)>(SET1(i,1)*a+SET1(i,2)-b+1));
+!@FOR(DATA_SET2(i):S2(i)>(-SET2(i,1)*a-SET2(i,2)+b+1));
+@FREE(a);
+@FREE(b);
+
+END

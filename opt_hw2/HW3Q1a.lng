@@ -1,0 +1,23 @@
+model
+sets:
+row/r1..r3/: rr;
+colomn/c1..c2/: cc;
+
+b/b1..b3/: bb;
+c/c1..c2/: cc;
+
+A(colomn,row): aa;
+endsets:
+
+data:
+cc=-1 -1;
+bb=-3 4 6;
+aa=-1 -2
+   -1  2
+    1  7;
+enddata
+
+max=@sum(c(i)*x(i));                           ! c_t*x;
+@for(A(i):@sum(aa(i,j)*x(j))<=b(i));   ! Ax<=b;
+
+end

@@ -1,0 +1,27 @@
+MODEL:
+SETS:
+Warehouse/W1..W6/: Supply;
+Market/M1..M8/: Demand;
+Ship(Warehouse, Market): X, Cost;
+ENDSETS
+DATA:
+Supply = 60 55 51 43 41 52;
+Demand = 35 37 22 32 41 32 43 38;
+Cost = 6 2 6 7 4 2 
+       4 9 5 3 8 5 
+       5 2 1 9 7 4 
+       7 6 7 3 9 2 
+       2 3 9 5 7 2 
+       5 5 2 2 8 1 
+       1 1 1 1 1 1
+       1 1 1 1 1 1;
+ENDDATA
+! Objective functions;
+MIN = @SUM(Ship(i,j): Cost(i,j)*X(i,j));
+! ;
+! Contraints;
+! ;
+@for(Warehouse(i): @SUM(Market(j): X(i,j) ) <= Supply(i));
+! ;
+@for(Market(j): @SUM(Warehouse(i): X(i,j)) = Demand(j));
+END
